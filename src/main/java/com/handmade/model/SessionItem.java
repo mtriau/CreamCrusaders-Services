@@ -46,6 +46,4 @@ public class SessionItem {
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
 	}
-    
-    
 }

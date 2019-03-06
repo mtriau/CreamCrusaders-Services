@@ -15,7 +15,7 @@ import java.util.*;
 public class TokenUtil {
 
     //private static final long VALIDITY_TIME_MS = 10 * 24 * 60 * 60 * 1000;// 10 days Validity
-    private static final long VALIDITY_TIME_MS =  2 * 60 * 60 * 1000; // 2 hours  validity
+    private static final long VALIDITY_TIME_MS =  60 * 60 * 1000; // 2 hours  validity
     private static final String AUTH_HEADER_NAME = "Authorization";
 
     private String secret="mrin";
@@ -26,6 +26,15 @@ public class TokenUtil {
       if (token != null && !token.isEmpty()) {
           final TokenUser user = parseUserFromToken(token.replace("Bearer", "").trim());
           Gson gson = new Gson();
+          long validTime = user.getCreateDate().getTime() + VALIDITY_TIME_MS;
+          if (user == null) {
+              return Optional.empty();
+          }
+          else if (user.getCreateDate().getTime() > validTime) {
+              return Optional.empty();
+          }
+          else if (user.isClaimed()) {
+          }
           if (user != null) {
               return Optional.of(new UserAuthentication(user));
           }
@@ -49,6 +58,8 @@ public class TokenUtil {
         if (user.getUserName() != null && roles != null) {
             try {
                 TokenUser t = new TokenUser(user, roles);
+                t.setCreateDate(new Date((long)claims.get("createDate")));
+                t.setClaimed((boolean)claims.get("claimed"));
                 return t;
 
             }
@@ -93,6 +104,8 @@ public class TokenUtil {
                 .claim("userName", user.getUserName())
                 .claim("userId", user.getUserId())
                 .claim("role", AuthUtil.getRoles(user.getRoles()))
+                .claim("createDate", System.currentTimeMillis())
+                .claim("claimed", false)
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }

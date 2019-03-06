@@ -5,11 +5,14 @@ import com.handmade.model.User;
 import com.handmade.model.UserRole;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 
 public class TokenUser extends org.springframework.security.core.userdetails.User {
     private User user;
+    private Date createDate;
+    private boolean claimed;
 
     //For returning a normal user
     public TokenUser(User user) {
@@ -34,5 +37,21 @@ public class TokenUser extends org.springframework.security.core.userdetails.Use
     public Collection<UserRole> getRoles() {
 
         return user.getRoles();
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public boolean isClaimed() {
+        return claimed;
+    }
+
+    public void setClaimed(boolean claimed) {
+        this.claimed = claimed;
     }
 }
