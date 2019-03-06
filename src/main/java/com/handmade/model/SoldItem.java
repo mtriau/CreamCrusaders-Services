@@ -8,7 +8,7 @@ import java.sql.Timestamp;
  * Created by Matt on 3/5/19.
  */
 @Entity
-@Table(name = "tblsoldproduct")
+@Table(name = "tblsolditem")
 public class SoldItem {
     private Integer soldItemId;
     private Timestamp dateSold;
