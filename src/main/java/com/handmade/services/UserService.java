@@ -1,6 +1,10 @@
 package com.handmade.services;
 
+import com.handmade.dao.SoldItemRepository;
+import com.handmade.dao.UserRepository;
 import com.handmade.dao.UserRoleDAOImpl;
+import com.handmade.model.Artisan;
+import com.handmade.model.SoldItem;
 import com.handmade.model.UserRole;
 import com.handmade.dao.UserDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 
 @Service
@@ -20,6 +25,10 @@ public class UserService {
 
   @Autowired
   private UserDAOImpl userRepo;
+  @Autowired
+  private SoldItemRepository soldItemRepository;
+  @Autowired
+  private UserRepository userRepository;
 
   @Autowired
   private UserRoleDAOImpl userRoleRepo;
@@ -63,6 +72,7 @@ public class UserService {
 		this.userRepo.save(user);
 		return true;
 	}
+
 
 	public User addNewUser(User user) {
 		return this.userRepo.save(user);

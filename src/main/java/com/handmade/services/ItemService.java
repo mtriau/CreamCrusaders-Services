@@ -1,13 +1,16 @@
 package com.handmade.services;
 
 import com.handmade.dao.ArtisanItemRepository;
+import com.handmade.dao.ArtisanRepository;
 import com.handmade.dao.SoldItemRepository;
+import com.handmade.model.Artisan;
 import com.handmade.model.ArtisanItem;
 import com.handmade.model.SoldItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +23,8 @@ public class ItemService {
     SoldItemRepository soldItemRepository;
     @Autowired
     ArtisanItemRepository artisanItemRepository;
+    @Autowired
+    ArtisanRepository artisanRepository;
 
     public ArtisanItem getArtisanItemById(Integer artisanItemId) {
         return artisanItemRepository.getArtisanItemByItemId(artisanItemId);
@@ -43,5 +48,14 @@ public class ItemService {
         return soldItem.getSoldItemId();
     }
 
+    public List<SoldItem> getSoldItemsByUser(Integer userId) {
+        List<Artisan> artisans = artisanRepository.findAll();
+        List<SoldItem> soldItems = new ArrayList<>();
+        for (Artisan a : artisans) {
+            List<SoldItem> artisanSoldItems  = soldItemRepository.getSoldItemByArtisanId(a.getArtisanId());
+            soldItems.addAll(artisanSoldItems);
+        }
+        return soldItems;
+    }
 
 }

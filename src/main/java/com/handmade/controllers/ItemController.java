@@ -38,6 +38,23 @@ public class ItemController {
         return resp;
     }
 
+    @RequestMapping(value = "/sold-item/user-id/{userId}", method = RequestMethod.GET, produces = { "application/json" })
+    public RestfulResponse getSoldItemsByUserId(HttpServletRequest req, @PathVariable Integer userId) {
+        RestfulResponse resp = new RestfulResponse();
+        List<SoldItem> soldItems;
+        try {
+            soldItems = itemService.getSoldItemsByUser(userId);
+            resp.setSuccess(true);
+            resp.setData(soldItems);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            resp.setSuccess(false);
+            resp.setMessage("Unable to find items");
+        }
+        return resp;
+    }
+
     @RequestMapping(value = "/sold-item/item-id/{itemId}", method = RequestMethod.GET, produces = { "application/json" })
     public RestfulResponse getSoldItemsByItemId(HttpServletRequest req, @PathVariable Integer itemId) {
         RestfulResponse resp = new RestfulResponse();

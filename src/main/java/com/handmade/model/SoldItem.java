@@ -19,7 +19,7 @@ public class SoldItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "sold_item_id")
+    @Column(name= "sold_product_id")
     public Integer getSoldItemId() {
         return soldItemId;
     }
