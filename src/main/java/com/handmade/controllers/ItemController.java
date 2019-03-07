@@ -1,5 +1,7 @@
 package com.handmade.controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.handmade.model.Artisan;
 import com.handmade.model.ArtisanItem;
 import com.handmade.model.RestfulResponse;
@@ -46,6 +48,8 @@ public class ItemController {
             soldItems = itemService.getSoldItemsByUser(userId);
             resp.setSuccess(true);
             resp.setData(soldItems);
+            
+
         }
         catch(Exception e){
             e.printStackTrace();

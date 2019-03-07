@@ -46,7 +46,7 @@ public class SoldItem {
         ArtisanId = artisanId;
     }
 
-    @Column(name= "item_id")
+    @Column(name= "product_id")
     public Integer getItemId() {
         return itemId;
     }
@@ -64,7 +64,7 @@ public class SoldItem {
         this.price = price;
     }
 
-    @Column(name= "item_description")
+    @Column(name= "product_description")
     public String getItemDescription() {
         return itemDescription;
     }
