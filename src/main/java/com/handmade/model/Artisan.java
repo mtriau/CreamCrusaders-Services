@@ -20,6 +20,8 @@ public class Artisan {
     String lastName;
     @Column(name= "bio")
     String bio;
+    @Column(name="phone_no")
+    String phoneNo;
     @OneToMany( cascade = CascadeType.ALL)
     @JoinColumn(name = "artisan_id", referencedColumnName = "artisan_id")
     Collection<ArtisanItem> artisanItems;
@@ -62,5 +64,13 @@ public class Artisan {
 
     public void setArtisanItems(Collection<ArtisanItem> artisanItems) {
         this.artisanItems = artisanItems;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 }
