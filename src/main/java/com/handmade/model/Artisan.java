@@ -22,6 +22,7 @@ public class Artisan {
     String bio;
     @Column(name="phone_no")
     String phoneNo;
+
     @OneToMany( cascade = CascadeType.ALL)
     @JoinColumn(name = "artisan_id", referencedColumnName = "artisan_id")
     Collection<ArtisanItem> artisanItems;

@@ -54,8 +54,8 @@ public class ArtisanController {
         return resp;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST, produces = { "application/json" })
-    public RestfulResponse saveArtisan(HttpServletRequest req, @RequestBody Artisan artisan) {
+    @RequestMapping(value = "/{arisanId}/{productId}", method = RequestMethod.POST, produces = { "application/json" })
+    public RestfulResponse saveArtisan(HttpServletRequest req, @RequestBody Artisan artisan, @PathVariable("artisanId") Integer artisanId) {
         RestfulResponse resp = new RestfulResponse();
         try {
             artisan = artisanService.saveArtisan(artisan);
