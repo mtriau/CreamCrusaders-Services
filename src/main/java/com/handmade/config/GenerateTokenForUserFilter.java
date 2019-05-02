@@ -9,6 +9,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.logging.Logger;
+
 import org.apache.commons.io.IOUtils;
 import org.json.*;
 
@@ -32,11 +34,15 @@ public class GenerateTokenForUserFilter extends AbstractAuthenticationProcessing
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException, JSONException {
         try{
+            Logger log = Logger.getLogger("LoginRequest");
             String jsonString = IOUtils.toString(request.getInputStream(), "UTF-8");
+            log.info(jsonString);
             /* using org.json */
             JSONObject userJSON = new JSONObject(jsonString);
             String username = userJSON.getString("username");
             String password = userJSON.getString("password");
+            log.info(username);
+            log.info(password);
             //final UsernamePasswordAuthenticationToken loginToken = new UsernamePasswordAuthenticationToken("demo", "demo");
             final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
             return getAuthenticationManager().authenticate(authToken); // This will take to successfulAuthentication or faliureAuthentication function

@@ -44,6 +44,8 @@ dependencies {
 
 	//compile group: 'org.springframework.data', name: 'spring-data-redis', version: '1.6.2.RELEASE'
 	//compile group: 'redis.clients', name: 'jedis', version: '1.5.0'
+
+	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.4'
 	compile group: 'com.twilio.sdk', name: 'twilio', version: '7.2.0'
 
 	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
@@ -64,4 +66,8 @@ dependencies {
 	//runtime('org.springframework.boot:spring-boot-devtools')
 	//testCompile('org.springframework.boot:spring-boot-starter-test')
 	//testCompile('org.springframework.security:spring-security-test')
+}
+
+test {
+	testLogging.showStandardStreams = true
 }

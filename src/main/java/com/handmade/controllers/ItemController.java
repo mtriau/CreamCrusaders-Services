@@ -53,7 +53,6 @@ public class ItemController {
             soldItems = itemService.getSoldItemsByUser(userId);
             resp.setSuccess(true);
             resp.setData(soldItems);
-
         }
         catch(Exception e){
             e.printStackTrace();

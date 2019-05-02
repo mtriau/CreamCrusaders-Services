@@ -7,8 +7,14 @@ import com.handmade.services.ArtisanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Matt on 12/4/18.
@@ -39,6 +45,21 @@ public class ArtisanController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = { "application/json" })
     public RestfulResponse getAllArtisans(HttpServletRequest req) {
+        Logger log = Logger.getAnonymousLogger();
+        for (Enumeration<String> e = req.getHeaderNames(); e.hasMoreElements();) {
+            String header = e.nextElement();
+            log.info(header);
+            log.info(req.getHeader(header));
+        }
+        log.info("1 " + req.getMethod());
+        log.info(req.getRemoteUser());
+        log.info("2 " + req.getRequestedSessionId());
+        log.info(req.getQueryString());
+        log.info("3 " + req.getAuthType());
+        log.info("4 " + req.getContextPath());
+        log.info("5 " + req.getRequestURL());
+        log.info("6 " + req.getServletPath());
+
         RestfulResponse resp = new RestfulResponse();
         List<Artisan> artisans;
         try {

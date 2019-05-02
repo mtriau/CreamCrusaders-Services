@@ -51,7 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new GenerateTokenForUserFilter ("/session", authenticationManager(), tokenUtil), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/api/admin/*").hasRole("ADMIN");
-        ;
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

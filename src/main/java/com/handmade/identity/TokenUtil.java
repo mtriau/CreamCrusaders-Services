@@ -9,6 +9,7 @@ import com.handmade.model.User;
 import io.jsonwebtoken.*;
 import javax.servlet.http.*;
 import java.util.*;
+import java.util.logging.Logger;
 
 
 @Service
@@ -18,11 +19,11 @@ public class TokenUtil {
     private static final long VALIDITY_TIME_MS =  60 * 60 * 1000; // 2 hours  validity
     private static final String AUTH_HEADER_NAME = "Authorization";
 
-    private String secret="mrin";
+    private String secret="dontlookatme";
 
     public Optional<Authentication> verifyToken(HttpServletRequest request) {
       final String token = request.getHeader(AUTH_HEADER_NAME);
-
+      Logger log = Logger.getLogger("TokenUtil");
       if (token != null && !token.isEmpty()) {
           final TokenUser user = parseUserFromToken(token.replace("Bearer", "").trim());
           Gson gson = new Gson();
@@ -34,6 +35,7 @@ public class TokenUtil {
               return Optional.empty();
           }
           else if (user.isClaimed()) {
+              System.out.println("User is claimed");
           }
           if (user != null) {
               return Optional.of(new UserAuthentication(user));
