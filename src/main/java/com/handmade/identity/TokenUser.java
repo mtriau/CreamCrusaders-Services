@@ -35,7 +35,6 @@ public class TokenUser extends org.springframework.security.core.userdetails.Use
     }
 
     public Collection<UserRole> getRoles() {
-
         return user.getRoles();
     }
 

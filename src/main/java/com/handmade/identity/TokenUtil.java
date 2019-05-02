@@ -1,5 +1,8 @@
 package com.handmade.identity;
 
+import com.handmade.dao.UserDAOImpl;
+import com.handmade.dao.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +22,13 @@ public class TokenUtil {
     private static final long VALIDITY_TIME_MS =  60 * 60 * 1000; // 2 hours  validity
     private static final String AUTH_HEADER_NAME = "Authorization";
 
+    @Autowired
+    private UserRepository userRepo;
+
     private String secret="dontlookatme";
 
     public Optional<Authentication> verifyToken(HttpServletRequest request) {
       final String token = request.getHeader(AUTH_HEADER_NAME);
-      Logger log = Logger.getLogger("TokenUtil");
       if (token != null && !token.isEmpty()) {
           final TokenUser user = parseUserFromToken(token.replace("Bearer", "").trim());
           Gson gson = new Gson();
@@ -37,7 +42,7 @@ public class TokenUtil {
           else if (user.isClaimed()) {
               System.out.println("User is claimed");
           }
-          if (user != null) {
+          if (user != null && userRepo.getUserByUserName(user.getUsername()) != null) {
               return Optional.of(new UserAuthentication(user));
           }
       }

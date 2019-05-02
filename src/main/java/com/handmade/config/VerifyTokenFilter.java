@@ -36,7 +36,7 @@ public class VerifyTokenFilter extends GenericFilterBean {
         if (myMatcher.matches(request)) {
             try {
                 Optional<Authentication> authentication = tokenUtil.verifyToken(request);
-                if (authentication.isPresent()) {
+                if (authentication.isPresent() && authentication.get().isAuthenticated()) {
                     SecurityContextHolder.getContext().setAuthentication(authentication.get());
                     filterChain.doFilter(req, res);
                 } else {
