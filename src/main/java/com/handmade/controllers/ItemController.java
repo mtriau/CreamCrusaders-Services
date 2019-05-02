@@ -54,10 +54,6 @@ public class ItemController {
             for (SoldItem si : soldItems) {
                 System.out.println(si.getDateSold().toString());
             }
-
-
-
-
         }
         catch(Exception e){
             e.printStackTrace();
