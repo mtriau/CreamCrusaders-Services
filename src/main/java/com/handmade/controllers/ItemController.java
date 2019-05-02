@@ -8,6 +8,7 @@ import com.handmade.model.ArtisanItem;
 import com.handmade.model.RestfulResponse;
 import com.handmade.model.SoldItem;
 import com.handmade.services.ItemService;
+import com.handmade.services.MessagingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ import java.util.List;
 /**
  * Created by Matt on 3/5/19.
  */
+
 @RestController
 @RequestMapping("/api/artisan-item")
 public class ItemController {
@@ -51,9 +53,6 @@ public class ItemController {
             soldItems = itemService.getSoldItemsByUser(userId);
             resp.setSuccess(true);
             resp.setData(soldItems);
-            for (SoldItem si : soldItems) {
-                System.out.println(si.getDateSold().toString());
-            }
         }
         catch(Exception e){
             e.printStackTrace();

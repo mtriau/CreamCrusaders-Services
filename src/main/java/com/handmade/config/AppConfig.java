@@ -2,6 +2,9 @@ package com.handmade.config;
 
 import java.util.Properties;
 import javax.sql.DataSource;
+
+import com.handmade.services.TwilioRequestValidator;
+import com.twilio.security.RequestValidator;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -38,6 +41,12 @@ public class AppConfig {
 	public JpaVendorAdapter JpaVendorAdapter() {
 		JpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
 		return adapter;
+	}
+
+	@Bean
+	public TwilioRequestValidator twilioRequestValidator() {
+		String authToken = env.getProperty("twilio.auth_token");
+		return new TwilioRequestValidator(new RequestValidator(authToken));
 	}
 
     @Bean
