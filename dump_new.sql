@@ -129,7 +129,7 @@ CREATE TABLE `tbluser` (
 
 LOCK TABLES `tbluser` WRITE;
 /*!40000 ALTER TABLE `tbluser` DISABLE KEYS */;
-INSERT INTO `tbluser` VALUES (1,'ybtriau@gmail.com','$2a$10$s/KVRxHHWyM/87ugKQpuJ.zGTGp8EMKNUIowwOcLU.PB2R8UAZhU2','none','Matt','Triau','ybtriau@gmail.com',NULL,NULL,NULL,NULL,NULL,1);
+INSERT INTO `tbluser` VALUES (1,'ybtriau@gmail.com','$2a$10$aa0GnGoVmYaBNxhW5xNbaO/51qp6lXNJr1vbfS2BjEc8k23RTOe0i','none','Matt','Triau','ybtriau@gmail.com',NULL,NULL,NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `tbluser` ENABLE KEYS */;
 UNLOCK TABLES;
 
