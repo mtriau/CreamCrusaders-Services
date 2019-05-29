@@ -1,7 +1,9 @@
 package com.handmade.config;
 
+import com.handmade.dao.UserDAOImpl;
 import com.handmade.identity.TokenUtil;
 import com.handmade.identity.UserDetailsService;
+import com.handmade.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -23,6 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private TokenUtil tokenUtil;
+    @Autowired
+    private UserService userService;
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -49,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new VerifyTokenFilter(tokenUtil), UsernamePasswordAuthenticationFilter.class)
                 // custom JSON based authentication by POST of {"username":"<name>","password":"<password>"} which sets the token header upon authentication
                 .addFilterBefore(new GenerateTokenForUserFilter ("/session", authenticationManager(), tokenUtil), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new RegisterUserFilter(userService), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/api/admin/*").hasRole("ADMIN");
     }
