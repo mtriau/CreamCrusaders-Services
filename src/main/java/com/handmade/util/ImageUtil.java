@@ -11,9 +11,11 @@ import java.io.*;
 public class ImageUtil {
 
 //    @Value("${img.root_path}")
-    private static String imageRootPath = "/Users/Matt/Documents/CreamCrusaders/Services-master/conf/images/";
+    private static String imageRootPath = System.getProperty("user.dir") + "\\conf\\images\\";
 
     public static String getImageStringByImgId(String imageId) {
+        System.out.println("Working Directory = " +
+                System.getProperty("user.dir"));
         return imageToEncodedString(imageRootPath + imageId + ".png");
     }
 
@@ -31,6 +33,8 @@ public class ImageUtil {
         return imageStr;
     }
     public static void saveEncodedString(String encodedImage, String imageId) {
+        System.out.println("Working Directory = " +
+                System.getProperty("user.dir"));
         byte[] data = Base64.decodeBase64(encodedImage);
         try (OutputStream stream = new FileOutputStream(imageRootPath + imageId + ".png")) {
             stream.write(data);
