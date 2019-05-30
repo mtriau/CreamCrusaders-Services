@@ -43,12 +43,6 @@ public class AppConfig {
 		return adapter;
 	}
 
-	@Bean
-	public TwilioRequestValidator twilioRequestValidator() {
-		String authToken = env.getProperty("twilio.auth_token");
-		return new TwilioRequestValidator(new RequestValidator(authToken));
-	}
-
     @Bean
 	public DataSource getDataSource() {
 	        BasicDataSource dataSource = new BasicDataSource();
