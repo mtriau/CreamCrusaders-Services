@@ -1,6 +1,8 @@
 package com.handmade.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by Matt on 12/4/18.
@@ -19,6 +21,16 @@ public class ArtisanItem {
     String itemName;
     @Column(name= "item_description")
     String itemDescription;
+    @Transient
+    String encodedImage;
+    @Column(name="image_id")
+    String imageId;
+    @Column(name="price")
+    BigDecimal price;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    ItemCategory itemCategory;
+
 
     public Integer getArtisanId() {
         return artisanId;
@@ -52,4 +64,35 @@ public class ArtisanItem {
         this.itemDescription = itemDescription;
     }
 
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
+
+    public String getEncodedImage() {
+        return encodedImage;
+    }
+
+    public void setEncodedImage(String encodedImage) {
+        this.encodedImage = encodedImage;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public ItemCategory getItemCategory() {
+        return itemCategory;
+    }
+
+    public void setItemCategory(ItemCategory itemCategory) {
+        this.itemCategory = itemCategory;
+    }
 }

@@ -74,4 +74,5 @@ public class Artisan {
     public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
     }
+
 }
