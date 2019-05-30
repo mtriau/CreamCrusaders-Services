@@ -17,6 +17,7 @@ public class SoldItem {
     private BigDecimal price;
     private String itemDescription;
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "sold_product_id")

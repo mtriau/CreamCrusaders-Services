@@ -3,16 +3,21 @@ package com.handmade.controllers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.handmade.model.Artisan;
-import com.handmade.model.ArtisanItem;
-import com.handmade.model.RestfulResponse;
-import com.handmade.model.SoldItem;
+import com.handmade.model.*;
 import com.handmade.services.ItemService;
 import com.handmade.services.MessagingService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +84,23 @@ public class ItemController {
         return resp;
     }
 
+    @RequestMapping(value = "/item-categories", method = RequestMethod.GET, produces = { "application/json" })
+    public RestfulResponse getAllItemCategories(HttpServletRequest req) {
+        RestfulResponse resp = new RestfulResponse();
+        List<ItemCategory> itemCategories;
+        try {
+            itemCategories = itemService.getAllItemCategories();
+            resp.setSuccess(true);
+            resp.setData(itemCategories);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            resp.setSuccess(false);
+            resp.setMessage("Unable to get item categories");
+        }
+        return resp;
+    }
+
     @RequestMapping(value = "/sold-item", method = RequestMethod.POST, produces = { "application/json" })
     public RestfulResponse saveSoldItem(HttpServletRequest req, @RequestBody SoldItem soldItem) {
         RestfulResponse resp = new RestfulResponse();
@@ -96,14 +118,15 @@ public class ItemController {
         return resp;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST, produces = { "application/json" })
+
+    @RequestMapping(value = "", method = RequestMethod.POST, produces = { "application/json" })
     public RestfulResponse saveArtisanItem(HttpServletRequest req, @RequestBody ArtisanItem artisanItem) {
         RestfulResponse resp = new RestfulResponse();
 
         try {
-            Integer artisanItemId = itemService.saveArtisanItem(artisanItem);
+            ArtisanItem artisanItem1 = itemService.saveArtisanItem(artisanItem);
             resp.setSuccess(true);
-            resp.setData(artisanItemId);
+            resp.setData(artisanItem1);
         }
         catch(Exception e){
             e.printStackTrace();
