@@ -22,6 +22,10 @@ public class Artisan {
     String bio;
     @Column(name="phone_no")
     String phoneNo;
+    @Column(name="image_id")
+    String imageId;
+    @Transient
+    String encodedImage;
 
     @OneToMany( cascade = CascadeType.ALL)
     @JoinColumn(name = "artisan_id", referencedColumnName = "artisan_id")
@@ -75,4 +79,19 @@ public class Artisan {
         this.phoneNo = phoneNo;
     }
 
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
+
+    public String getEncodedImage() {
+        return encodedImage;
+    }
+
+    public void setEncodedImage(String encodedImage) {
+        this.encodedImage = encodedImage;
+    }
 }

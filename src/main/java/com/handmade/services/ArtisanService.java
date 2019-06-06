@@ -46,6 +46,13 @@ public class ArtisanService {
                 ImageUtil.saveEncodedString(artisanItem.getEncodedImage(), imageId);
             }
         }
+        System.out.println(artisan.getEncodedImage());
+        if (artisan.getEncodedImage() != null) {
+            String imageId = artisan.getArtisanId().toString();
+            artisan.setImageId(imageId);
+            ImageUtil.saveEncodedString(artisan.getEncodedImage(), imageId);
+        }
+        artisanRepository.save(artisan);
         return artisan;
     }
 
@@ -61,6 +68,11 @@ public class ArtisanService {
             }
             artisanItems.add(item);
         }
+        if (a.getImageId() != null) {
+            String encodedImage = ImageUtil.getImageStringByImgId(a.getImageId());
+            a.setEncodedImage(encodedImage);
+        }
+
 //        addSoldItems();
         a.setArtisanItems(artisanItems);
         return a;
@@ -97,6 +109,10 @@ public class ArtisanService {
         List<Artisan> artisans = artisanRepository.findAll();
         List<Artisan> artisans1 = new ArrayList<>();
         for (Artisan a : artisans) {
+            if (a.getImageId() != null) {
+                String encodedImage = ImageUtil.getImageStringByImgId(a.getImageId());
+                a.setEncodedImage(encodedImage);
+            }
             List<ArtisanItem> artisanItems = new ArrayList<>();
             for (ArtisanItem item : a.getArtisanItems()) {
                 if (item.getImageId() != null) {
